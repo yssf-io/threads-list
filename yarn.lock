@@ -1500,7 +1500,7 @@ thenify-all@^1.0.0:
   dependencies:
     any-promise "^1.0.0"
 
-threads-api@^1.3.1:
+threads-api@1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/threads-api/-/threads-api-1.3.1.tgz#60bd97953734fe550f7f71cbb76bc31d6baf15eb"
   integrity sha512-QzjabhzKAeO8MRoFBsIglpNkzXgTe3sONbGZj2L6hUHbiKlIL7KgkYYGNA5cnvaXYMPwb3Off7pQgsyoLztfUw==

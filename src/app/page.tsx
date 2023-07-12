@@ -1,7 +1,7 @@
 import { ThreadsAPI, Thread } from "threads-api";
-import Column from "./(components)/Column";
+import ListUI from "./(components)/List";
 
-async function getData(
+export async function getData(
   username: string
 ): Promise<{ id: string; posts: Thread[] }> {
   const threads = new ThreadsAPI();
@@ -16,11 +16,12 @@ async function getData(
 }
 
 export default async function Home() {
-  const { posts } = await getData("zuck");
+  // const { posts } = await getData("zuck");
 
   return (
     <main className="p-2 flex">
-      <Column posts={posts} />
+      <ListUI />
+      {/*<Column posts={posts} />*/}
     </main>
   );
 }
