@@ -46,6 +46,37 @@ export const splitByMention = (
   return result;
 };
 
+type SplitResult = {
+  value: string;
+  type: "mention" | "url" | "text";
+};
+
+export function splitByMentionAndURL(input: string): SplitResult[] {
+  const regex = /(@\w+)|((?:http|https):\/\/[^\s]+)/g;
+  let result: SplitResult[] = [];
+  let match;
+  let lastIndex = 0;
+
+  while ((match = regex.exec(input))) {
+    if (match.index !== lastIndex) {
+      result.push({ value: input.slice(lastIndex, match.index), type: "text" });
+    }
+
+    let type: SplitResult["type"] = match[0].startsWith("@")
+      ? "mention"
+      : "url";
+    result.push({ value: match[0], type });
+
+    lastIndex = regex.lastIndex;
+  }
+
+  if (lastIndex < input.length) {
+    result.push({ value: input.slice(lastIndex), type: "text" });
+  }
+
+  return result;
+}
+
 const Thread = ({ post }: { post: Post }) => {
   const { user, text_post_app_info } = post;
   const { username } = user;
@@ -53,7 +84,7 @@ const Thread = ({ post }: { post: Post }) => {
 
   return (
     <div>
-      {!reposted_post && !quoted_post && <PostUI post={post} />}
+      {!reposted_post && <PostUI post={post} />}
       {reposted_post && !quoted_post && (
         <Repost post={reposted_post} reposter={username} />
       )}
