@@ -1,4 +1,4 @@
-import { ThreadsAPI, ThreadsUser, Thread } from "threads-api";
+import { ThreadsAPI, Thread } from "threads-api";
 import Column from "./(components)/Column";
 
 async function getData(

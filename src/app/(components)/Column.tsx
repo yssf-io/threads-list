@@ -10,7 +10,7 @@ const Column = ({ posts }: { posts: Thread[] }) => {
       </div>
 
       {posts.map((post) => (
-        <ThreadUI post={post} />
+        <ThreadUI post={post.thread_items[0].post} />
       ))}
     </div>
   );

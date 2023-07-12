@@ -1,7 +1,8 @@
-import Image from "next/image";
-import { Thread } from "threads-api";
+import { Post } from "threads-api";
+import PostUI from "./Post";
+import Repost from "./Repost";
 
-function formatDuration(seconds: number): string {
+export function formatDuration(seconds: number): string {
   if (seconds < 60) {
     return `${seconds}s`;
   }
@@ -29,28 +30,33 @@ function formatDuration(seconds: number): string {
   return `${years}y`;
 }
 
-const Thread = ({ post }: { post: Thread }) => {
-  const { caption, user, taken_at } = post.thread_items[0].post;
-  const { profile_pic_url, username } = user;
+export const splitByMention = (
+  input: string
+): { value: string; mention: boolean }[] => {
+  let result: { value: string; mention: boolean }[] = [];
+  let parts = input.split(/(@\w+)/g);
+
+  parts.forEach((part) => {
+    if (part) {
+      let isMention = part.startsWith("@");
+      result.push({ value: part, mention: isMention });
+    }
+  });
+
+  return result;
+};
+
+const Thread = ({ post }: { post: Post }) => {
+  const { user, text_post_app_info } = post;
+  const { username } = user;
+  const { reposted_post, quoted_post } = text_post_app_info.share_info;
 
   return (
-    <div className="flex ml-2 border-b items-start border-gray-300">
-      <Image
-        className="rounded-full m-2"
-        src={profile_pic_url}
-        alt={`profile picture of ${username}`}
-        width={60}
-        height={60}
-      />
-      <div className="w-4/5">
-        <div className="flex justify-between align-top m-2">
-          <p className="font-bold text-md">@{username}</p>
-          <p className="text-md ml-2">
-            {formatDuration(Date.now() / 1000 - taken_at)}
-          </p>
-        </div>
-        <p className="ml-2">{caption?.text}</p>
-      </div>
+    <div>
+      {!reposted_post && !quoted_post && <PostUI post={post} />}
+      {reposted_post && !quoted_post && (
+        <Repost post={reposted_post} reposter={username} />
+      )}
     </div>
   );
 };
