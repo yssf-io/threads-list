@@ -1,5 +1,6 @@
 import { ThreadsAPI, Thread } from "threads-api";
 import Lists from "./(components)/Lists";
+import SideBar from "./(components)/SideBar";
 
 export async function getData(
   username: string
@@ -19,7 +20,8 @@ export default async function Home() {
   // const { posts } = await getData("zuck");
 
   return (
-    <main className="p-2 flex">
+    <main className="flex">
+      <SideBar />
       <Lists />
       {/*<Column posts={posts} />*/}
     </main>

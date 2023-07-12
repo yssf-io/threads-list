@@ -3,6 +3,7 @@ import CreateList, { List } from "./CreateList";
 import ListUI from "./List";
 import { useEffect, useState } from "react";
 import { FilledList } from "@/pages/api/getData";
+import { useListStore } from "@/slices/displayLists";
 
 const getPosts = async (
   lists: List[]
@@ -22,6 +23,7 @@ const Lists = () => {
   const [existingLists, setExistingLists] = useState<List[] | undefined>(
     undefined
   );
+  const { lists, updateLists } = useListStore();
 
   useEffect(() => {
     if (existingLists) return;
@@ -36,17 +38,25 @@ const Lists = () => {
     });
   }, [existingLists]);
 
+  useEffect(() => {
+    if (existingLists) updateLists(existingLists);
+  }, [existingLists]);
+
   return (
     <div className="flex">
       {filledLists &&
-        filledLists.map(({ name, users, posts }) => (
-          <ListUI
-            key={name}
-            list={{ name: name, users: users }}
-            posts={posts}
-          />
+        filledLists.map(({ name, users, posts }, index) => (
+          <div>
+            {lists && lists.find((l) => l.name === name)?.show && (
+              <ListUI
+                key={name}
+                list={{ name: name, users: users }}
+                posts={posts}
+              />
+            )}
+          </div>
         ))}
-      <div className="p-2">
+      <div className="">
         <CreateList />
       </div>
     </div>

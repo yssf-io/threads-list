@@ -9,6 +9,7 @@ export interface User {
 export interface List {
   name: string;
   users: User[];
+  show?: boolean;
 }
 
 const CreateList: React.FC = () => {
