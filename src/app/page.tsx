@@ -1,5 +1,5 @@
 import { ThreadsAPI, Thread } from "threads-api";
-import ListUI from "./(components)/List";
+import Lists from "./(components)/Lists";
 
 export async function getData(
   username: string
@@ -20,7 +20,7 @@ export default async function Home() {
 
   return (
     <main className="p-2 flex">
-      <ListUI />
+      <Lists />
       {/*<Column posts={posts} />*/}
     </main>
   );

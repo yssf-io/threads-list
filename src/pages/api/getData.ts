@@ -3,19 +3,34 @@ import { getData } from "@/app/page";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Thread } from "threads-api";
 
+export interface FilledList extends List {
+  posts: Thread[];
+}
+
 const getPosts = async (
   lists: List[]
-): Promise<{ posts: Thread[]; lists: List[] }> => {
-  if (lists.length === 0) return { posts: [], lists: [] };
+): Promise<{ filledLists: FilledList[] }> => {
+  if (lists.length === 0) return { filledLists: [] };
 
-  const list = lists[0];
-  const user = list.users[0];
-  const { id, posts } = await getData(user.username);
+  const filledLists = await Promise.all(
+    lists.map(async (list) => {
+      const posts: Thread[] = [];
 
-  if (!id) return { posts: [], lists };
-  user.id = id;
+      list.users = await Promise.all(
+        list.users.map(async (user) => {
+          const { posts: listPosts, id } = await getData(user.username);
 
-  return { posts, lists };
+          posts.push(...listPosts);
+
+          return { username: user.username, id };
+        })
+      );
+
+      return { ...list, posts };
+    })
+  );
+
+  return { filledLists };
 };
 
 export default async function handler(

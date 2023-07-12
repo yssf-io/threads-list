@@ -14,7 +14,6 @@ const LinkAttachment = ({ link }: { link: LinkPreviewAttachment }) => {
             alt={`image preview of ${title} page`}
             width="100"
             height="100"
-            layout="responsive"
           />
         )}
         <p className="text-gray-400 text-sm m-2">{display_url}</p>

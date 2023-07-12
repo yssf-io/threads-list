@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Post, QuotedPost, RepostedPost } from "threads-api";
 import { formatDuration, splitByMentionAndURL } from "./Thread";
 import LinkAttachment from "./LinkAttachement";
+import { randomBytes } from "crypto";
 
 export interface LinkPreviewAttachment {
   display_url: string;
@@ -18,7 +19,8 @@ const Post = ({
   post: Post | RepostedPost | QuotedPost;
   isQuoted?: boolean;
 }) => {
-  const { caption, user, taken_at, image_versions2, text_post_app_info } = post;
+  const { caption, user, taken_at, image_versions2, text_post_app_info, code } =
+    post;
   const { profile_pic_url, username } = user;
   const { candidates } = image_versions2;
   const { link_preview_attachment, share_info } = text_post_app_info;
@@ -43,7 +45,7 @@ const Post = ({
           {caption && (
             <p className="ml-2">
               {splitByMentionAndURL(caption.text).map(({ value, type }) => (
-                <span>
+                <span key={randomBytes(100).toString()}>
                   {type === "mention" ? (
                     <a
                       className="text-blue-500"
@@ -83,13 +85,18 @@ const Post = ({
 
           <div>
             {!isQuoted && share_info && share_info.quoted_post && (
-              <a
-                href={`https://www.threads.net/t/${share_info.quoted_post.code}`}
+              <div
+                className="cursor-pointer"
+                onClick={() =>
+                  window.open(
+                    `https://www.threads.net/t/${share_info.quoted_post!.code}`
+                  )
+                }
               >
                 <div className="border border-gray-300 p-2 rounded-lg mt-2">
                   <Post post={share_info.quoted_post} isQuoted={true} />
                 </div>
-              </a>
+              </div>
             )}
           </div>
         </div>
