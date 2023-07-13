@@ -17,7 +17,7 @@ Bringing Twitter's List feature to Threads.
   - ✅ Create lists
   - 🚧 Fetch all posts from a lists
 - 🚧 Design
-  - 🚧 Lists in zustand for better reactivity
+  - ✅ Lists in zustand for better reactivity
   - 🚧 Better UI (maybe threads-react?)
 - 🔲 Authentication (Sign in with Threads/Instagram)
 - Database to remember lists and user preferences

@@ -9,9 +9,11 @@ export interface DisplayList {
 export interface ListSlice {
   lists: DisplayList[];
   showList: (name: string) => void;
-  updateLists: (lists: List[]) => void;
+  updateDisplayLists: (lists: List[]) => void;
   showCreateList: boolean;
   toggleCreateList: () => void;
+  existingLists: List[] | undefined;
+  updateExistingLists: (lists: List[]) => void;
 }
 
 export const createListSlice: StateCreator<ListSlice> = (set, get) => ({
@@ -24,7 +26,7 @@ export const createListSlice: StateCreator<ListSlice> = (set, get) => ({
       ],
     });
   },
-  updateLists: (lists: List[]) => {
+  updateDisplayLists: (lists: List[]) => {
     set({
       lists: lists.map((l) => ({ name: l.name, show: l.show || false })),
     });
@@ -32,6 +34,10 @@ export const createListSlice: StateCreator<ListSlice> = (set, get) => ({
   showCreateList: false,
   toggleCreateList: () => {
     set({ showCreateList: !get().showCreateList });
+  },
+  existingLists: undefined,
+  updateExistingLists: (lists: List[]) => {
+    set({ existingLists: lists });
   },
 });
 

@@ -20,16 +20,19 @@ const getPosts = async (
 
 const Lists = () => {
   const [filledLists, setFilledLists] = useState<FilledList[]>([]);
-  const [existingLists, setExistingLists] = useState<List[] | undefined>(
-    undefined
-  );
-  const { lists, updateLists, showCreateList, toggleCreateList } =
-    useListStore();
+  const {
+    lists,
+    updateDisplayLists,
+    showCreateList,
+    toggleCreateList,
+    existingLists,
+    updateExistingLists,
+  } = useListStore();
 
   useEffect(() => {
     if (existingLists) return;
     const tmp = localStorage.getItem("lists");
-    setExistingLists(tmp ? JSON.parse(tmp) : undefined);
+    updateExistingLists(tmp ? JSON.parse(tmp) : undefined);
   });
 
   useEffect(() => {
@@ -40,7 +43,7 @@ const Lists = () => {
   }, [existingLists]);
 
   useEffect(() => {
-    if (existingLists) updateLists(existingLists);
+    if (existingLists) updateDisplayLists(existingLists);
   }, [existingLists]);
 
   return (

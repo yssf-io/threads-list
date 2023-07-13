@@ -1,4 +1,5 @@
 "use client";
+import { useListStore } from "@/slices/displayLists";
 import React, { useState } from "react";
 
 export interface User {
@@ -16,6 +17,7 @@ const CreateList = ({ close }: { close: () => void }) => {
   const [listName, setListName] = useState("");
   const [username, setUsername] = useState("");
   const [userList, setUserList] = useState<User[]>([]);
+  const { updateExistingLists, toggleCreateList } = useListStore();
 
   const handleAddUser = async () => {
     const user = { username, id: "" };
@@ -35,6 +37,9 @@ const CreateList = ({ close }: { close: () => void }) => {
     existingLists.push({ name: listName, users: userList });
 
     localStorage.setItem("lists", JSON.stringify(existingLists));
+
+    updateExistingLists(existingLists);
+    toggleCreateList();
 
     setListName("");
     setUserList([]);
