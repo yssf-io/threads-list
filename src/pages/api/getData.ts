@@ -26,7 +26,12 @@ const getPosts = async (
         })
       );
 
-      return { ...list, posts };
+      const sortedPosts = posts.sort(
+        (a, b) =>
+          b.thread_items[0].post.taken_at - a.thread_items[0].post.taken_at
+      );
+
+      return { ...list, posts: sortedPosts };
     })
   );
 

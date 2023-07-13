@@ -15,7 +15,7 @@ Bringing Twitter's List feature to Threads.
   - ✅ Reposts
   - ✅ Quoted posts
   - ✅ Create lists
-  - 🚧 Fetch all posts from a lists
+  - ✅ Fetch all posts from a lists
 - 🚧 Design
   - ✅ Lists in zustand for better reactivity
   - 🚧 Better UI (maybe threads-react?)
