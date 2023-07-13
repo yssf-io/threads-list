@@ -21,14 +21,14 @@ const SideBar = () => {
     const index = existingLists.findIndex((list: List) => list.name === name);
     existingLists[index].show = existingLists[index].show ? false : true;
     showList(existingLists[index].name);
-    localStorage.setItem("lists", JSON.stringify(lists));
+    localStorage.setItem("lists", JSON.stringify(existingLists));
   };
 
   const handleDelete = (name: string) => {
     if (existingLists === undefined) return;
     const index = existingLists.findIndex((list: List) => list.name === name);
     existingLists.splice(index, 1);
-    localStorage.setItem("lists", JSON.stringify(lists));
+    localStorage.setItem("lists", JSON.stringify(existingLists));
     updateExistingLists(existingLists);
   };
 
