@@ -1,10 +1,23 @@
 import { List } from "@/app/(components)/CreateList";
-import { getData } from "@/app/page";
 import { NextApiRequest, NextApiResponse } from "next";
-import { Thread } from "threads-api";
+import { Thread, ThreadsAPI } from "threads-api";
 
 export interface FilledList extends List {
   posts: Thread[];
+}
+
+export async function getData(
+  username: string
+): Promise<{ id: string; posts: Thread[] }> {
+  const threads = new ThreadsAPI();
+  const id = await threads.getUserIDfromUsername(username);
+
+  // const profile = await threads.getUserProfile(username, id);
+  if (!id) return { id: "", posts: [] };
+
+  const posts = await threads.getUserProfileThreads(username, id);
+
+  return { id, posts };
 }
 
 const getPosts = async (

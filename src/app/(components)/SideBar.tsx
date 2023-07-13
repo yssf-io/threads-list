@@ -2,9 +2,10 @@
 
 import { useListStore } from "@/slices/displayLists";
 import { List } from "./CreateList";
+import { useEffect, useState } from "react";
 
 const SideBar = () => {
-  const lists = JSON.parse(localStorage.getItem("lists") || "[]");
+  const [lists, setLists] = useState<List[] | undefined>(undefined);
   const {
     lists: listsShow,
     showList,
@@ -15,6 +16,7 @@ const SideBar = () => {
   } = useListStore();
 
   const handleShow = (name: string) => {
+    if (lists === undefined) return;
     const index = lists.findIndex((list: List) => list.name === name);
     lists[index].show = lists[index].show ? false : true;
     showList(lists[index].name);
@@ -22,11 +24,17 @@ const SideBar = () => {
   };
 
   const handleDelete = (name: string) => {
+    if (lists === undefined) return;
     const index = lists.findIndex((list: List) => list.name === name);
     lists.splice(index, 1);
     localStorage.setItem("lists", JSON.stringify(lists));
     updateExistingLists(lists);
   };
+
+  useEffect(() => {
+    if (lists) return;
+    setLists(JSON.parse(localStorage.getItem("lists") || "[]"));
+  });
 
   return (
     <div className="border border-black min-w-[300px] max-w-[300px] h-screen">
