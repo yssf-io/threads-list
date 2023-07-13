@@ -10,6 +10,8 @@ export interface ListSlice {
   lists: DisplayList[];
   showList: (name: string) => void;
   updateLists: (lists: List[]) => void;
+  showCreateList: boolean;
+  toggleCreateList: () => void;
 }
 
 export const createListSlice: StateCreator<ListSlice> = (set, get) => ({
@@ -26,6 +28,10 @@ export const createListSlice: StateCreator<ListSlice> = (set, get) => ({
     set({
       lists: lists.map((l) => ({ name: l.name, show: l.show || false })),
     });
+  },
+  showCreateList: false,
+  toggleCreateList: () => {
+    set({ showCreateList: !get().showCreateList });
   },
 });
 

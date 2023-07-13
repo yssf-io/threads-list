@@ -5,7 +5,12 @@ import { List } from "./CreateList";
 
 const SideBar = () => {
   const lists = JSON.parse(localStorage.getItem("lists") || "[]");
-  const { lists: listsShow, showList } = useListStore();
+  const {
+    lists: listsShow,
+    showList,
+    showCreateList,
+    toggleCreateList,
+  } = useListStore();
 
   const handleShow = (name: string) => {
     const index = lists.findIndex((list: List) => list.name === name);
@@ -47,9 +52,14 @@ const SideBar = () => {
         </div>
       ))}
 
-      <p className="w-2/3 m-auto px-4 py-2 text-white bg-blue-500 rounded-md cursor-pointer">
-        Create a list
-      </p>
+      {!showCreateList && (
+        <p
+          onClick={toggleCreateList}
+          className="w-2/3 m-auto px-4 py-2 text-white bg-blue-500 rounded-md cursor-pointer"
+        >
+          Create a list
+        </p>
+      )}
     </div>
   );
 };

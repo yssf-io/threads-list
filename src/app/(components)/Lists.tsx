@@ -23,7 +23,8 @@ const Lists = () => {
   const [existingLists, setExistingLists] = useState<List[] | undefined>(
     undefined
   );
-  const { lists, updateLists } = useListStore();
+  const { lists, updateLists, showCreateList, toggleCreateList } =
+    useListStore();
 
   useEffect(() => {
     if (existingLists) return;
@@ -56,9 +57,7 @@ const Lists = () => {
             )}
           </div>
         ))}
-      <div className="">
-        <CreateList />
-      </div>
+      {showCreateList && <CreateList close={toggleCreateList} />}
     </div>
   );
 };

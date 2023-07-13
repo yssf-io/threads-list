@@ -12,7 +12,7 @@ export interface List {
   show?: boolean;
 }
 
-const CreateList: React.FC = () => {
+const CreateList = ({ close }: { close: () => void }) => {
   const [listName, setListName] = useState("");
   const [username, setUsername] = useState("");
   const [userList, setUserList] = useState<User[]>([]);
@@ -54,7 +54,12 @@ const CreateList: React.FC = () => {
       onSubmit={handleSubmit}
       className="p-8 space-y-8 border border-black min-w-[500px] max-w-[500px]"
     >
-      <h1 className="text-2xl font-bold">Create a list</h1>
+      <div className="flex justify-between">
+        <h1 className="text-2xl font-bold">Create a list</h1>
+        <button onClick={close} className="px-2 py-1 text-black underline">
+          Cancel
+        </button>
+      </div>
       <input
         type="text"
         placeholder="List Name"
