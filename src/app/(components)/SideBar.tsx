@@ -1,11 +1,12 @@
 "use client";
-
 import { useListStore } from "@/slices/displayLists";
 import { List } from "./CreateList";
 import { useEffect, useState } from "react";
+import FirstTimeModal from "./FirstTimeModal";
 
 const SideBar = () => {
   const [lists, setLists] = useState<List[] | undefined>(undefined);
+  const [showModal, setShowModal] = useState(false);
   const {
     lists: listsShow,
     showList,
@@ -36,9 +37,17 @@ const SideBar = () => {
     setLists(JSON.parse(localStorage.getItem("lists") || "[]"));
   }, []);
 
+  useEffect(() => {
+    if (!localStorage.getItem("firstTime")) {
+      setShowModal(true);
+
+      localStorage.setItem("firstTime", "false");
+    }
+  }, []);
+
   return (
     <div className="border border-black min-w-[300px] max-w-[300px] h-screen">
-      <p className="text-center text-xl font-bold my-8">Welcome</p>
+      <p className="text-center text-xl font-bold my-8">Threads List</p>
       <p className="text-lg font-bold m-2">Your lists</p>
       {existingLists &&
         existingLists.map((list: List) => (
@@ -72,6 +81,28 @@ const SideBar = () => {
           Create a list
         </p>
       )}
+
+      <p className="text-lg font-bold m-2 mt-28">Misc.</p>
+      <div className="m-2">
+        <p
+          onClick={() => setShowModal(true)}
+          className="cursor-pointer hover:underline underline-offset-4"
+        >
+          Welcome message
+        </p>
+
+        <p className="">
+          Reach out:{" "}
+          <a
+            className="text-blue-500 hover:underline underline-offset-4"
+            href="https://threads.net/@yssf_io"
+          >
+            @yssf_io
+          </a>
+        </p>
+      </div>
+
+      {showModal && <FirstTimeModal onClose={() => setShowModal(false)} />}
     </div>
   );
 };
