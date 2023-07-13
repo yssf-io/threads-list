@@ -18,7 +18,7 @@ const Lists = () => {
     if (existingLists) return;
     const tmp = localStorage.getItem("lists");
     updateExistingLists(tmp ? JSON.parse(tmp) : undefined);
-  });
+  }, []);
 
   useEffect(() => {
     if (existingLists) updateDisplayLists(existingLists);

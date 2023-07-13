@@ -34,7 +34,7 @@ const SideBar = () => {
   useEffect(() => {
     if (lists) return;
     setLists(JSON.parse(localStorage.getItem("lists") || "[]"));
-  });
+  }, []);
 
   return (
     <div className="border border-black min-w-[300px] max-w-[300px] h-screen">
