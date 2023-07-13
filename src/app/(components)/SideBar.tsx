@@ -16,19 +16,19 @@ const SideBar = () => {
   } = useListStore();
 
   const handleShow = (name: string) => {
-    if (lists === undefined) return;
-    const index = lists.findIndex((list: List) => list.name === name);
-    lists[index].show = lists[index].show ? false : true;
-    showList(lists[index].name);
+    if (existingLists === undefined) return;
+    const index = existingLists.findIndex((list: List) => list.name === name);
+    existingLists[index].show = existingLists[index].show ? false : true;
+    showList(existingLists[index].name);
     localStorage.setItem("lists", JSON.stringify(lists));
   };
 
   const handleDelete = (name: string) => {
-    if (lists === undefined) return;
-    const index = lists.findIndex((list: List) => list.name === name);
-    lists.splice(index, 1);
+    if (existingLists === undefined) return;
+    const index = existingLists.findIndex((list: List) => list.name === name);
+    existingLists.splice(index, 1);
     localStorage.setItem("lists", JSON.stringify(lists));
-    updateExistingLists(lists);
+    updateExistingLists(existingLists);
   };
 
   useEffect(() => {
