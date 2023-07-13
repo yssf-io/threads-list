@@ -13,6 +13,7 @@ Bringing Twitter's List feature to Threads.
     - ✅ Multiple images
     - 🚧 GIFs
     - 🚧 Video
+    - 🚧 Likes and reposts
   - 🚧 Replies
   - ✅ Reposts
   - ✅ Quoted posts
@@ -31,3 +32,4 @@ Bringing Twitter's List feature to Threads.
   - 🔲 Moving lists around
   - 🔲 Close column with close button
   - 🔲 Toggle sidebar
+  - 🔲 Bookmarks

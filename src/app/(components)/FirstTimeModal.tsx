@@ -56,6 +56,8 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
                   Features on the roadmap:
                 </p>
                 <ul className="list-disc text-sm mt-3 text-left w-4/5 m-auto text-gray-500">
+                  <li>Video & GIF support</li>
+                  <li>Bookmarks</li>
                   <li>Ability to login (and get access to your following)</li>
                   <li>Ability to share lists</li>
                   <li>
