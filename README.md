@@ -12,6 +12,7 @@ Bringing Twitter's List feature to Threads.
     - ✅ Links
     - 🚧 Multiple images
     - 🚧 Video
+  - 🚧 Replies
   - ✅ Reposts
   - ✅ Quoted posts
   - ✅ Create lists
@@ -23,3 +24,9 @@ Bringing Twitter's List feature to Threads.
 - 🔲 Database to remember lists and user preferences
   - ✅ Local storage for anonynous users
   - 🔲 DB (redis?) for logged in users
+- 🔲 Improvments
+  - 🔲 Retry if posts of a user aren't received
+  - 🔲 Show members in lists, and allow for edits
+  - 🔲 Moving lists around
+  - 🔲 Close column with close button
+  - 🔲 Toggle sidebar
