@@ -3,6 +3,7 @@ import { Post, QuotedPost, RepostedPost } from "threads-api";
 import { formatDuration, splitByMentionAndURL } from "./Thread";
 import LinkAttachment from "./LinkAttachement";
 import { randomBytes } from "crypto";
+import Carousel from "./Carousel";
 
 export interface LinkPreviewAttachment {
   display_url: string;
@@ -19,14 +20,21 @@ const Post = ({
   post: Post | RepostedPost | QuotedPost;
   isQuoted?: boolean;
 }) => {
-  const { caption, user, taken_at, image_versions2, text_post_app_info, code } =
-    post;
+  const {
+    caption,
+    user,
+    taken_at,
+    image_versions2,
+    text_post_app_info,
+    code,
+    carousel_media,
+  } = post;
   const { profile_pic_url, username } = user;
   const { candidates } = image_versions2;
   const { link_preview_attachment, share_info } = text_post_app_info;
 
   return (
-    <div className="flex ml-2 items-start border-gray-300">
+    <div className="flex ml-2 items-start border-gray-300 h-fit">
       <Image
         className="rounded-full m-2"
         src={profile_pic_url}
@@ -69,13 +77,21 @@ const Post = ({
             </p>
           )}
 
-          {candidates.length > 0 && (
+          {carousel_media === null && candidates.length > 0 && (
             <Image
               className="rounded-lg m-2"
               src={candidates[0].url}
               alt={`image from ${username}`}
               width={candidates[0].width}
               height={candidates[0].height}
+            />
+          )}
+
+          {carousel_media !== null && (
+            <Carousel
+              images={carousel_media.map(
+                (m: any) => m.image_versions2.candidates[0].url
+              )}
             />
           )}
 

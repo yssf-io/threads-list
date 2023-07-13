@@ -10,7 +10,8 @@ Bringing Twitter's List feature to Threads.
     - ✅ Text
     - ✅ Image
     - ✅ Links
-    - 🚧 Multiple images
+    - ✅ Multiple images
+    - 🚧 GIFs
     - 🚧 Video
   - 🚧 Replies
   - ✅ Reposts
