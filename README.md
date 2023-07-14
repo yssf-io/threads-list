@@ -2,6 +2,10 @@
 
 Bringing Twitter's List feature to Threads.
 
+### Project paused until Threads comes back online for Europe
+
+Otherwise I can't really use it or test it.
+
 ### Roadmap
 
 - 🚧 Core
